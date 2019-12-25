@@ -17,7 +17,8 @@ class AuthenticateUser
   def user
     user = User.find_by(email: email)
     return user if user && user.authenticate(password)
-    # raise Authentication error if credentials are invalid
-    raise(ExceptionHandler::AuthenticationError, Message.invalid_credentials)
+    
+    errors.add :user_authentication, 'invalid credentials'
+    nil
   end
 end
