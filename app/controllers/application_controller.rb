@@ -10,5 +10,6 @@ class ApplicationController < ActionController::API
   # Check for valid request token and return user
   def authorize_request
     @current_user = (AuthorizeApiRequest.new(request.headers).call)[:user]
+    render json: { error: 'Not Authorized' }, status: 401 unless @current_user
   end
 end
